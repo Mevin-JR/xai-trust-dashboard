@@ -21,6 +21,23 @@ uv run pytest                      # tests for the plain-language generator and 
 - `http://localhost:8501` opens **Explore** mode (demo, model metrics, CSV export of responses).
 - `http://localhost:8501/?mode=study` is the participant link: study flow only, no sidebar.
 
+## Deployment (Streamlit Community Cloud)
+
+Live app: https://xai-trust-dashboard.streamlit.app (participant link: add `/?mode=study`).
+
+Set two secrets in the app's **Settings > Secrets** (locally, in `.streamlit/secrets.toml`, which git ignores):
+
+```toml
+DATABASE_URL = "postgresql://postgres.<project-ref>:<password>@<region>.pooler.supabase.com:5432/postgres"
+RESEARCHER_PASSWORD = "<choose one>"
+```
+
+- `DATABASE_URL` is Supabase's **Session pooler** connection string (IPv4; the direct connection is IPv6-only).
+  Tables are created on first use, with row-level security on so Supabase's public API cannot read them.
+  Without it, responses go to `data/responses.db`, which Streamlit Cloud wipes on restart.
+- `RESEARCHER_PASSWORD` protects Explore mode (it shows every response). Without it, Explore is open.
+- `requirements.txt` is exported from `uv.lock`: `uv export --no-hashes --no-dev --no-emit-project -o requirements.txt`.
+
 ## How it works
 
 | File | Purpose |

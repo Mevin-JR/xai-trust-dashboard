@@ -2,6 +2,7 @@
 
 Run: uv run streamlit run app.py
 """
+import hmac
 import html
 import json
 import random
@@ -274,6 +275,43 @@ FILTERS = {
 }
 
 
+def hide_sidebar():
+    st.markdown("<style>[data-testid='stSidebar'],[data-testid='stSidebarCollapsedControl']"
+                "{display:none}</style>", unsafe_allow_html=True)
+
+
+def participant_link() -> str:
+    """The study link for this deployment, e.g. https://<app>.streamlit.app/?mode=study."""
+    base = (getattr(st.context, "url", None) or "http://localhost:8501").split("?")[0].rstrip("/")
+    return f"{base}/?mode=study"
+
+
+def researcher_password() -> str | None:
+    try:
+        return st.secrets.get("RESEARCHER_PASSWORD")
+    except Exception:  # no secrets file locally
+        return None
+
+
+def researcher_unlocked() -> bool:
+    """Explore mode shows every response, so online it sits behind a password."""
+    password = researcher_password()
+    if not password or st.session_state.get("researcher"):
+        return True
+    hide_sidebar()
+    st.title("Researcher sign-in", anchor=False)
+    st.markdown("This page is for the researcher. If you are taking part in the study, "
+                "use the link you were sent.")
+    with st.form("signin"):
+        entered = st.text_input("Password", type="password")
+        if st.form_submit_button("Sign in", type="primary"):
+            if hmac.compare_digest(entered.encode(), password.encode()):
+                st.session_state["researcher"] = True
+                st.rerun()
+            st.error("Incorrect password. Check the RESEARCHER_PASSWORD secret and try again.")
+    return False
+
+
 def sidebar():
     """Researcher console: mode, case register, display options and study status."""
     sb = st.sidebar
@@ -315,8 +353,8 @@ def sidebar():
     sb.markdown("#### Study")
     total, done = storage.counts()
     sb.markdown(f"{total} participants started, {done} completed.")
-    sb.caption("Participant link")
-    sb.code("http://localhost:8501/?mode=study", language=None)
+    sb.caption(f"Participant link (responses saved to {storage.backend()})")
+    sb.code(participant_link(), language=None)
     if total:
         sb.download_button("Download responses (CSV)", storage.export().to_csv(index=False),
                            "responses.csv", "text/csv", use_container_width=True)
@@ -447,10 +485,9 @@ questions about them. It takes about **15-20 minutes**.
 
 # Participants get a link ending in ?mode=study, which hides the sidebar and Explore mode.
 if st.query_params.get("mode") == "study":
-    st.markdown("<style>[data-testid='stSidebar'],[data-testid='stSidebarCollapsedControl']"
-                "{display:none}</style>", unsafe_allow_html=True)
+    hide_sidebar()
     study()
-else:
+elif researcher_unlocked():
     opts = sidebar()
     if opts["mode"] == "Explore":
         explore(opts["cid"], opts["compare"], opts["top"], opts["show_outcome"])

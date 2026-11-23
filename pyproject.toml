@@ -13,6 +13,8 @@ dependencies = [
     "streamlit>=1.40",
     "matplotlib>=3.9",
     "joblib>=1.4",
+    "sqlalchemy>=2.0",
+    "psycopg[binary]>=3.2",
 ]
 
 [dependency-groups]

@@ -144,6 +144,10 @@ pillow==13.0.0
     #   streamlit
 protobuf==7.36.2
     # via streamlit
+psycopg==3.3.9
+    # via xai-trust-dashboard
+psycopg-binary==3.3.9 ; implementation_name != 'pypy'
+    # via psycopg
 pyarrow==26.0.1
     # via streamlit
 pydeck==0.9.3
@@ -195,6 +199,8 @@ shap==0.54.1 ; python_full_version >= '3.12'
     # via xai-trust-dashboard
 slicer==0.0.8
     # via shap
+sqlalchemy==2.1.9
+    # via xai-trust-dashboard
 starlette==1.10.0
     # via streamlit
 streamlit==1.67.0
@@ -213,13 +219,16 @@ typing-extensions==4.16.0
     # via
     #   altair
     #   anyio
+    #   psycopg
     #   referencing
     #   shap
+    #   sqlalchemy
     #   starlette
     #   streamlit
 tzdata==2026.6
     # via
     #   pandas
+    #   psycopg
     #   python-dateutil
 urllib3==2.8.0
     # via requests

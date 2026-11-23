@@ -1,0 +1,15 @@
+# Fixed light theme: every participant sees the same visual treatment.
+[theme]
+base = "light"
+primaryColor = "#1F5FA8"
+backgroundColor = "#F5F7F4"
+secondaryBackgroundColor = "#E6ECEA"
+textColor = "#1E2A33"
+font = "sans serif"
+
+# The sidebar is the case register: a dark slate binder beside the paper sheets.
+[theme.sidebar]
+backgroundColor = "#1E2A33"
+secondaryBackgroundColor = "#2A3944"
+textColor = "#E9EEEB"
+primaryColor = "#8DB4E2"

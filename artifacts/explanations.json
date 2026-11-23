@@ -1,0 +1,1039 @@
+{
+  "model": "random_forest",
+  "shap_global": {
+    "checking_status": 0.10012,
+    "savings_status": 0.03071,
+    "purpose": 0.02904,
+    "credit_history": 0.0262,
+    "duration": 0.02157,
+    "other_payment_plans": 0.01905,
+    "age": 0.01879,
+    "credit_amount": 0.01876,
+    "property_magnitude": 0.01211,
+    "housing": 0.0105,
+    "installment_commitment": 0.01019,
+    "employment": 0.00935,
+    "own_telephone": 0.00657,
+    "other_parties": 0.00572,
+    "residence_since": 0.00346,
+    "job": 0.00239,
+    "num_dependents": 0.00134,
+    "existing_credits": 0.00131
+  },
+  "shap_base": 0.49995416666666653,
+  "shap_units": "probability of approval",
+  "labels": {
+    "checking_status": "Checking account balance",
+    "duration": "Loan duration",
+    "credit_history": "Credit history",
+    "purpose": "Loan purpose",
+    "credit_amount": "Loan amount",
+    "savings_status": "Savings balance",
+    "employment": "Time in current job",
+    "installment_commitment": "Repayment burden (1-4)",
+    "other_parties": "Co-applicant or guarantor",
+    "residence_since": "Years at current address",
+    "property_magnitude": "Most valuable property",
+    "age": "Age",
+    "other_payment_plans": "Other instalment plans",
+    "housing": "Housing",
+    "existing_credits": "Existing loans at this bank",
+    "job": "Job type",
+    "num_dependents": "Number of dependents",
+    "own_telephone": "Registered telephone"
+  },
+  "blocks": [
+    {
+      "explained": "732",
+      "forward": "192"
+    },
+    {
+      "explained": "727",
+      "forward": "23"
+    },
+    {
+      "explained": "175",
+      "forward": "4"
+    },
+    {
+      "explained": "869",
+      "forward": "638"
+    }
+  ],
+  "practice": [
+    "333",
+    "743"
+  ],
+  "cases": {
+    "732": {
+      "id": "732",
+      "applicant": {
+        "checking_status": "0-200 DM",
+        "duration": "8 months",
+        "credit_history": "existing paid",
+        "purpose": "radio / tv",
+        "credit_amount": "760 DM",
+        "savings_status": "under 100 DM",
+        "employment": "4-7 years",
+        "installment_commitment": "4",
+        "other_parties": "guarantor",
+        "residence_since": "2 years",
+        "property_magnitude": "real estate",
+        "age": "44 years",
+        "other_payment_plans": "none",
+        "housing": "own",
+        "existing_credits": "1",
+        "job": "unskilled resident",
+        "num_dependents": "1",
+        "own_telephone": "no"
+      },
+      "proba_approve": 0.680185938263078,
+      "approved": true,
+      "actual_good": true,
+      "shap": {
+        "checking_status": -0.04029430950563788,
+        "duration": 0.06568612236797786,
+        "credit_history": -0.01165557778521678,
+        "purpose": 0.04142524300641731,
+        "credit_amount": 0.003978163041177529,
+        "savings_status": -0.01356761379742722,
+        "employment": 0.009746549708190735,
+        "installment_commitment": -0.00723736079416313,
+        "other_parties": 0.07135237696674604,
+        "residence_since": -0.004694260038030269,
+        "property_magnitude": 0.026122128014982954,
+        "age": 0.02460634105578611,
+        "other_payment_plans": 0.010613813191284693,
+        "housing": 0.007611586425583031,
+        "existing_credits": -0.0004705271257843232,
+        "job": 0.0015760126498392886,
+        "num_dependents": -0.0003726980248011864,
+        "own_telephone": -0.004194217760513291
+      },
+      "lime": [
+        {
+          "feature": "checking_status",
+          "rule": "Checking account balance=0-200 DM",
+          "weight": -0.09456119943565675
+        },
+        {
+          "feature": "duration",
+          "rule": "Loan duration <= 12.00",
+          "weight": 0.060090568391050356
+        },
+        {
+          "feature": "other_payment_plans",
+          "rule": "Other instalment plans=none",
+          "weight": 0.05924271112865342
+        },
+        {
+          "feature": "savings_status",
+          "rule": "Savings balance=under 100 DM",
+          "weight": -0.058328720596898906
+        },
+        {
+          "feature": "other_parties",
+          "rule": "Co-applicant or guarantor=guarantor",
+          "weight": 0.04766923966301134
+        },
+        {
+          "feature": "purpose",
+          "rule": "Loan purpose=radio / tv",
+          "weight": 0.043856298285365955
+        },
+        {
+          "feature": "credit_history",
+          "rule": "Credit history=existing paid",
+          "weight": -0.032382271917927224
+        },
+        {
+          "feature": "age",
+          "rule": "Age > 41.00",
+          "weight": 0.032155800137582125
+        }
+      ],
+      "narrative": {
+        "headline": "The system recommends to **approve** this application (68% confidence).",
+        "reasons": [
+          "**Co-applicant or guarantor** (guarantor) moderately pushed the decision towards approval.",
+          "**Loan duration** (8 months) moderately pushed the decision towards approval.",
+          "**Loan purpose** (radio / tv) moderately pushed the decision towards approval."
+        ],
+        "summary": "Overall, the factors pointing towards approval outweighed those pointing towards rejection."
+      }
+    },
+    "23": {
+      "id": "23",
+      "applicant": {
+        "checking_status": "0-200 DM",
+        "duration": "12 months",
+        "credit_history": "critical / other existing credit",
+        "purpose": "used car",
+        "credit_amount": "1,804 DM",
+        "savings_status": "100-500 DM",
+        "employment": "less than 1 year",
+        "installment_commitment": "3",
+        "other_parties": "none",
+        "residence_since": "4 years",
+        "property_magnitude": "life insurance",
+        "age": "44 years",
+        "other_payment_plans": "none",
+        "housing": "own",
+        "existing_credits": "1",
+        "job": "skilled",
+        "num_dependents": "1",
+        "own_telephone": "no"
+      },
+      "proba_approve": 0.6176125252305925,
+      "approved": true,
+      "actual_good": true,
+      "shap": {
+        "checking_status": -0.06974019520551247,
+        "duration": 0.014708674299605269,
+        "credit_history": 0.05425782312525433,
+        "purpose": 0.058283137275166354,
+        "credit_amount": 0.01694147096936795,
+        "savings_status": 0.017574494398826458,
+        "employment": -0.020728274249770102,
+        "installment_commitment": -0.0006464177333235112,
+        "other_parties": -0.0017484253161507302,
+        "residence_since": 0.003276945483105868,
+        "property_magnitude": 0.0025823324808111597,
+        "age": 0.023404984405302757,
+        "other_payment_plans": 0.01168314034113109,
+        "housing": 0.011758397955399203,
+        "existing_credits": 5.732387590128618e-05,
+        "job": 0.0011772844913324433,
+        "num_dependents": 0.0013776944748838172,
+        "own_telephone": -0.006562032507405007
+      },
+      "lime": [
+        {
+          "feature": "checking_status",
+          "rule": "Checking account balance=0-200 DM",
+          "weight": -0.0867249113585283
+        },
+        {
+          "feature": "purpose",
+          "rule": "Loan purpose=used car",
+          "weight": 0.06978745275289916
+        },
+        {
+          "feature": "credit_history",
+          "rule": "Credit history=critical / other existing credit",
+          "weight": 0.06883375893105634
+        },
+        {
+          "feature": "duration",
+          "rule": "Loan duration <= 12.00",
+          "weight": 0.060077694151503484
+        },
+        {
+          "feature": "other_payment_plans",
+          "rule": "Other instalment plans=none",
+          "weight": 0.05613205019594698
+        },
+        {
+          "feature": "employment",
+          "rule": "Time in current job=less than 1 year",
+          "weight": -0.031292378784351066
+        },
+        {
+          "feature": "age",
+          "rule": "Age > 41.00",
+          "weight": 0.03125257786631133
+        },
+        {
+          "feature": "housing",
+          "rule": "Housing=own",
+          "weight": 0.028756879553625946
+        }
+      ],
+      "narrative": {
+        "headline": "The system recommends to **approve** this application (62% confidence).",
+        "reasons": [
+          "**Checking account balance** (0-200 DM) moderately pushed the decision towards rejection.",
+          "**Loan purpose** (used car) moderately pushed the decision towards approval.",
+          "**Credit history** (critical / other existing credit) moderately pushed the decision towards approval."
+        ],
+        "summary": "Overall, the factors pointing towards approval outweighed those pointing towards rejection."
+      }
+    },
+    "638": {
+      "id": "638",
+      "applicant": {
+        "checking_status": "no checking account",
+        "duration": "12 months",
+        "credit_history": "existing paid",
+        "purpose": "radio / tv",
+        "credit_amount": "1,493 DM",
+        "savings_status": "under 100 DM",
+        "employment": "less than 1 year",
+        "installment_commitment": "4",
+        "other_parties": "none",
+        "residence_since": "3 years",
+        "property_magnitude": "car",
+        "age": "34 years",
+        "other_payment_plans": "none",
+        "housing": "own",
+        "existing_credits": "1",
+        "job": "skilled",
+        "num_dependents": "2",
+        "own_telephone": "no"
+      },
+      "proba_approve": 0.7148060622142667,
+      "approved": true,
+      "actual_good": true,
+      "shap": {
+        "checking_status": 0.18219427219321963,
+        "duration": 0.014894950769107983,
+        "credit_history": -0.01851400733366155,
+        "purpose": 0.03713312210270213,
+        "credit_amount": 0.021029077177583726,
+        "savings_status": -0.019273152465247037,
+        "employment": -0.020708541016002485,
+        "installment_commitment": -0.0067459329228230225,
+        "other_parties": -0.001369439713252473,
+        "residence_since": -0.0013274437946207414,
+        "property_magnitude": -0.0005027791135690423,
+        "age": 0.00547353100681134,
+        "other_payment_plans": 0.015319933792658048,
+        "housing": 0.006507372497946109,
+        "existing_credits": 0.00035722966089926574,
+        "job": 0.002427967854616779,
+        "num_dependents": 0.002485640390437937,
+        "own_telephone": -0.004529905539207417
+      },
+      "lime": [
+        {
+          "feature": "checking_status",
+          "rule": "Checking account balance=no checking account",
+          "weight": 0.21901140111911527
+        },
+        {
+          "feature": "other_payment_plans",
+          "rule": "Other instalment plans=none",
+          "weight": 0.0638679956322168
+        },
+        {
+          "feature": "savings_status",
+          "rule": "Savings balance=under 100 DM",
+          "weight": -0.058487433199775236
+        },
+        {
+          "feature": "duration",
+          "rule": "Loan duration <= 12.00",
+          "weight": 0.055382157882767145
+        },
+        {
+          "feature": "purpose",
+          "rule": "Loan purpose=radio / tv",
+          "weight": 0.039084351177674816
+        },
+        {
+          "feature": "credit_history",
+          "rule": "Credit history=existing paid",
+          "weight": -0.03726500958791432
+        },
+        {
+          "feature": "employment",
+          "rule": "Time in current job=less than 1 year",
+          "weight": -0.02995137955270887
+        },
+        {
+          "feature": "housing",
+          "rule": "Housing=own",
+          "weight": 0.022367309467817384
+        }
+      ],
+      "narrative": {
+        "headline": "The system recommends to **approve** this application (71% confidence).",
+        "reasons": [
+          "**Checking account balance** (no checking account) strongly pushed the decision towards approval.",
+          "**Loan purpose** (radio / tv) moderately pushed the decision towards approval.",
+          "**Loan amount** (1,493 DM) slightly pushed the decision towards approval."
+        ],
+        "summary": "Overall, the factors pointing towards approval outweighed those pointing towards rejection."
+      }
+    },
+    "192": {
+      "id": "192",
+      "applicant": {
+        "checking_status": "0-200 DM",
+        "duration": "27 months",
+        "credit_history": "existing paid",
+        "purpose": "business",
+        "credit_amount": "3,915 DM",
+        "savings_status": "under 100 DM",
+        "employment": "1-4 years",
+        "installment_commitment": "4",
+        "other_parties": "none",
+        "residence_since": "2 years",
+        "property_magnitude": "car",
+        "age": "36 years",
+        "other_payment_plans": "none",
+        "housing": "own",
+        "existing_credits": "1",
+        "job": "skilled",
+        "num_dependents": "2",
+        "own_telephone": "yes"
+      },
+      "proba_approve": 0.4427642171239878,
+      "approved": false,
+      "actual_good": false,
+      "shap": {
+        "checking_status": -0.04832917642909695,
+        "duration": -0.008032476016477028,
+        "credit_history": -0.015902172342249235,
+        "purpose": -0.010643603343131908,
+        "credit_amount": 0.011014865254867239,
+        "savings_status": -0.029665765046379588,
+        "employment": 0.0012564065021015468,
+        "installment_commitment": -0.009330172349020796,
+        "other_parties": -0.0029427237873863466,
+        "residence_since": -0.004098969518019516,
+        "property_magnitude": 0.0061729809205570306,
+        "age": 0.017326639449275053,
+        "other_payment_plans": 0.01004671577287252,
+        "housing": 0.009046068979343744,
+        "existing_credits": -0.001584024773095445,
+        "job": 0.0009869215218469183,
+        "num_dependents": 0.005410287258778863,
+        "own_telephone": 0.012078248402535048
+      },
+      "lime": [
+        {
+          "feature": "checking_status",
+          "rule": "Checking account balance=0-200 DM",
+          "weight": -0.09290665116391414
+        },
+        {
+          "feature": "savings_status",
+          "rule": "Savings balance=under 100 DM",
+          "weight": -0.06493273080793634
+        },
+        {
+          "feature": "duration",
+          "rule": "Loan duration > 24.00",
+          "weight": -0.05941952743919044
+        },
+        {
+          "feature": "other_payment_plans",
+          "rule": "Other instalment plans=none",
+          "weight": 0.05759509995824741
+        },
+        {
+          "feature": "credit_amount",
+          "rule": "Loan amount > 3870.50",
+          "weight": -0.04956516488544259
+        },
+        {
+          "feature": "credit_history",
+          "rule": "Credit history=existing paid",
+          "weight": -0.036084071547504065
+        },
+        {
+          "feature": "purpose",
+          "rule": "Loan purpose=business",
+          "weight": -0.027025535844384503
+        },
+        {
+          "feature": "housing",
+          "rule": "Housing=own",
+          "weight": 0.02478635345539554
+        }
+      ],
+      "narrative": {
+        "headline": "The system recommends to **reject** this application (56% confidence).",
+        "reasons": [
+          "**Checking account balance** (0-200 DM) moderately pushed the decision towards rejection.",
+          "**Savings balance** (under 100 DM) moderately pushed the decision towards rejection.",
+          "**Age** (36 years) slightly pushed the decision towards approval."
+        ],
+        "summary": "Overall, the factors pointing towards rejection outweighed those pointing towards approval."
+      }
+    },
+    "727": {
+      "id": "727",
+      "applicant": {
+        "checking_status": "overdrawn (below 0 DM)",
+        "duration": "18 months",
+        "credit_history": "existing paid",
+        "purpose": "radio / tv",
+        "credit_amount": "1,882 DM",
+        "savings_status": "under 100 DM",
+        "employment": "1-4 years",
+        "installment_commitment": "4",
+        "other_parties": "none",
+        "residence_since": "4 years",
+        "property_magnitude": "car",
+        "age": "25 years",
+        "other_payment_plans": "bank",
+        "housing": "rent",
+        "existing_credits": "2",
+        "job": "skilled",
+        "num_dependents": "1",
+        "own_telephone": "no"
+      },
+      "proba_approve": 0.3076926383686197,
+      "approved": false,
+      "actual_good": false,
+      "shap": {
+        "checking_status": -0.11416357669398015,
+        "duration": -0.00020243873487042996,
+        "credit_history": -0.013385729942397936,
+        "purpose": 0.031944229996174536,
+        "credit_amount": 0.014955907983554421,
+        "savings_status": -0.021005629778867184,
+        "employment": -4.471553218626361e-05,
+        "installment_commitment": -0.009373204014233883,
+        "other_parties": -0.005659386106324072,
+        "residence_since": -0.00038119362377798125,
+        "property_magnitude": 0.00021344091007268091,
+        "age": -0.01755608766023869,
+        "other_payment_plans": -0.033774589156130706,
+        "housing": -0.01724504631736634,
+        "existing_credits": 0.001053453198068474,
+        "job": -0.0029460237734524842,
+        "num_dependents": -0.0006564478198427333,
+        "own_telephone": -0.0040344912322478645
+      },
+      "lime": [
+        {
+          "feature": "checking_status",
+          "rule": "Checking account balance=overdrawn (below 0 DM)",
+          "weight": -0.16849552376314267
+        },
+        {
+          "feature": "other_payment_plans",
+          "rule": "Other instalment plans=bank",
+          "weight": -0.06353176618068164
+        },
+        {
+          "feature": "savings_status",
+          "rule": "Savings balance=under 100 DM",
+          "weight": -0.06099782088648698
+        },
+        {
+          "feature": "purpose",
+          "rule": "Loan purpose=radio / tv",
+          "weight": 0.03812141868554993
+        },
+        {
+          "feature": "credit_history",
+          "rule": "Credit history=existing paid",
+          "weight": -0.03541913014125821
+        },
+        {
+          "feature": "age",
+          "rule": "Age <= 27.00",
+          "weight": -0.03376227742195753
+        },
+        {
+          "feature": "housing",
+          "rule": "Housing=rent",
+          "weight": -0.024555712003127242
+        },
+        {
+          "feature": "credit_amount",
+          "rule": "1329.00 < Loan amount <= 2246.50",
+          "weight": 0.019997206742317388
+        }
+      ],
+      "narrative": {
+        "headline": "The system recommends to **reject** this application (69% confidence).",
+        "reasons": [
+          "**Checking account balance** (overdrawn (below 0 DM)) strongly pushed the decision towards rejection.",
+          "**Other instalment plans** (bank) moderately pushed the decision towards rejection.",
+          "**Loan purpose** (radio / tv) moderately pushed the decision towards approval."
+        ],
+        "summary": "Overall, the factors pointing towards rejection outweighed those pointing towards approval."
+      }
+    },
+    "4": {
+      "id": "4",
+      "applicant": {
+        "checking_status": "overdrawn (below 0 DM)",
+        "duration": "24 months",
+        "credit_history": "delayed previously",
+        "purpose": "new car",
+        "credit_amount": "4,870 DM",
+        "savings_status": "under 100 DM",
+        "employment": "1-4 years",
+        "installment_commitment": "3",
+        "other_parties": "none",
+        "residence_since": "4 years",
+        "property_magnitude": "no known property",
+        "age": "53 years",
+        "other_payment_plans": "none",
+        "housing": "for free",
+        "existing_credits": "2",
+        "job": "skilled",
+        "num_dependents": "2",
+        "own_telephone": "no"
+      },
+      "proba_approve": 0.29010486688955583,
+      "approved": false,
+      "actual_good": false,
+      "shap": {
+        "checking_status": -0.11646917377251588,
+        "duration": -0.006460969112333882,
+        "credit_history": -0.019052890905831867,
+        "purpose": -0.027219665407553915,
+        "credit_amount": -0.008995136945904791,
+        "savings_status": -0.020754522872148136,
+        "employment": 0.0050688657603051215,
+        "installment_commitment": -0.0038964711942072487,
+        "other_parties": -0.003927116693586536,
+        "residence_since": -0.0011004513333505626,
+        "property_magnitude": -0.025121311210478912,
+        "age": 0.020436805343391262,
+        "other_payment_plans": 0.009130547301989441,
+        "housing": -0.010524581390805844,
+        "existing_credits": 0.00012673457379204687,
+        "job": -0.0013698431629345605,
+        "num_dependents": 0.006201568544051983,
+        "own_telephone": -0.005921687298988365
+      },
+      "lime": [
+        {
+          "feature": "checking_status",
+          "rule": "Checking account balance=overdrawn (below 0 DM)",
+          "weight": -0.16491707350797138
+        },
+        {
+          "feature": "other_payment_plans",
+          "rule": "Other instalment plans=none",
+          "weight": 0.06262974785404048
+        },
+        {
+          "feature": "savings_status",
+          "rule": "Savings balance=under 100 DM",
+          "weight": -0.05604287380321134
+        },
+        {
+          "feature": "credit_amount",
+          "rule": "Loan amount > 3870.50",
+          "weight": -0.051522494992875305
+        },
+        {
+          "feature": "purpose",
+          "rule": "Loan purpose=new car",
+          "weight": -0.04785308480289409
+        },
+        {
+          "feature": "age",
+          "rule": "Age > 41.00",
+          "weight": 0.030477575277047683
+        },
+        {
+          "feature": "property_magnitude",
+          "rule": "Most valuable property=no known property",
+          "weight": -0.02953349873989551
+        },
+        {
+          "feature": "housing",
+          "rule": "Housing=for free",
+          "weight": -0.01993878585854992
+        }
+      ],
+      "narrative": {
+        "headline": "The system recommends to **reject** this application (71% confidence).",
+        "reasons": [
+          "**Checking account balance** (overdrawn (below 0 DM)) strongly pushed the decision towards rejection.",
+          "**Loan purpose** (new car) slightly pushed the decision towards rejection.",
+          "**Most valuable property** (no known property) slightly pushed the decision towards rejection."
+        ],
+        "summary": "Overall, the factors pointing towards rejection outweighed those pointing towards approval."
+      }
+    },
+    "175": {
+      "id": "175",
+      "applicant": {
+        "checking_status": "no checking account",
+        "duration": "30 months",
+        "credit_history": "all paid",
+        "purpose": "used car",
+        "credit_amount": "7,485 DM",
+        "savings_status": "no known savings",
+        "employment": "unemployed",
+        "installment_commitment": "4",
+        "other_parties": "none",
+        "residence_since": "1 years",
+        "property_magnitude": "real estate",
+        "age": "53 years",
+        "other_payment_plans": "bank",
+        "housing": "own",
+        "existing_credits": "1",
+        "job": "high qualif / self emp / mgmt",
+        "num_dependents": "1",
+        "own_telephone": "yes"
+      },
+      "proba_approve": 0.7533308080858816,
+      "approved": true,
+      "actual_good": false,
+      "shap": {
+        "checking_status": 0.12168257570969898,
+        "duration": -0.005364440131030268,
+        "credit_history": -0.020967120671048462,
+        "purpose": 0.08411387969897904,
+        "credit_amount": -0.015102110056822346,
+        "savings_status": 0.052315937170886964,
+        "employment": -0.0005871366391622902,
+        "installment_commitment": -0.00302841582847033,
+        "other_parties": -0.0011510751070877474,
+        "residence_since": 0.016479980892304406,
+        "property_magnitude": 0.016938203118047154,
+        "age": 0.03450148532449346,
+        "other_payment_plans": -0.047721086374906574,
+        "housing": 0.009675231615051707,
+        "existing_credits": -0.00028877587870199475,
+        "job": 0.006054467829177658,
+        "num_dependents": 0.0005395577487312453,
+        "own_telephone": 0.005285482999074552
+      },
+      "lime": [
+        {
+          "feature": "checking_status",
+          "rule": "Checking account balance=no checking account",
+          "weight": 0.21357304426791418
+        },
+        {
+          "feature": "purpose",
+          "rule": "Loan purpose=used car",
+          "weight": 0.07247307670214909
+        },
+        {
+          "feature": "other_payment_plans",
+          "rule": "Other instalment plans=bank",
+          "weight": -0.06581978792567936
+        },
+        {
+          "feature": "duration",
+          "rule": "Loan duration > 24.00",
+          "weight": -0.05695898152617364
+        },
+        {
+          "feature": "savings_status",
+          "rule": "Savings balance=no known savings",
+          "weight": 0.054035833848948445
+        },
+        {
+          "feature": "credit_amount",
+          "rule": "Loan amount > 3870.50",
+          "weight": -0.05163574365064602
+        },
+        {
+          "feature": "credit_history",
+          "rule": "Credit history=all paid",
+          "weight": -0.05098939850544261
+        },
+        {
+          "feature": "age",
+          "rule": "Age > 41.00",
+          "weight": 0.03493528836488693
+        }
+      ],
+      "narrative": {
+        "headline": "The system recommends to **approve** this application (75% confidence).",
+        "reasons": [
+          "**Checking account balance** (no checking account) strongly pushed the decision towards approval.",
+          "**Loan purpose** (used car) moderately pushed the decision towards approval.",
+          "**Savings balance** (no known savings) moderately pushed the decision towards approval."
+        ],
+        "summary": "Overall, the factors pointing towards approval outweighed those pointing towards rejection."
+      }
+    },
+    "333": {
+      "id": "333",
+      "applicant": {
+        "checking_status": "no checking account",
+        "duration": "48 months",
+        "credit_history": "critical / other existing credit",
+        "purpose": "used car",
+        "credit_amount": "11,590 DM",
+        "savings_status": "100-500 DM",
+        "employment": "1-4 years",
+        "installment_commitment": "2",
+        "other_parties": "none",
+        "residence_since": "4 years",
+        "property_magnitude": "car",
+        "age": "24 years",
+        "other_payment_plans": "bank",
+        "housing": "rent",
+        "existing_credits": "2",
+        "job": "unskilled resident",
+        "num_dependents": "1",
+        "own_telephone": "no"
+      },
+      "proba_approve": 0.5447560802374157,
+      "approved": true,
+      "actual_good": false,
+      "shap": {
+        "checking_status": 0.11672860578058797,
+        "duration": -0.05383110013446447,
+        "credit_history": 0.03477523415066387,
+        "purpose": 0.08175475323911942,
+        "credit_amount": -0.05421057677305006,
+        "savings_status": 0.026978608309477032,
+        "employment": -0.0034046996869231184,
+        "installment_commitment": 0.005947580609653834,
+        "other_parties": -0.00021482357569195233,
+        "residence_since": 0.0009299268804639061,
+        "property_magnitude": 0.007842646715647425,
+        "age": -0.024998646679287143,
+        "other_payment_plans": -0.06822792121916421,
+        "housing": -0.021483044064170734,
+        "existing_credits": 0.0006418804829182109,
+        "job": -0.0009106912996632722,
+        "num_dependents": -0.0003851720077765976,
+        "own_telephone": -0.0031306471575907138
+      },
+      "lime": [
+        {
+          "feature": "checking_status",
+          "rule": "Checking account balance=no checking account",
+          "weight": 0.21756077460757114
+        },
+        {
+          "feature": "purpose",
+          "rule": "Loan purpose=used car",
+          "weight": 0.07416590767806859
+        },
+        {
+          "feature": "credit_history",
+          "rule": "Credit history=critical / other existing credit",
+          "weight": 0.06678523073388025
+        },
+        {
+          "feature": "duration",
+          "rule": "Loan duration > 24.00",
+          "weight": -0.059786832964274984
+        },
+        {
+          "feature": "other_payment_plans",
+          "rule": "Other instalment plans=bank",
+          "weight": -0.057736944439251356
+        },
+        {
+          "feature": "credit_amount",
+          "rule": "Loan amount > 3870.50",
+          "weight": -0.048037298579553245
+        },
+        {
+          "feature": "age",
+          "rule": "Age <= 27.00",
+          "weight": -0.04356595721463847
+        },
+        {
+          "feature": "installment_commitment",
+          "rule": "Repayment burden (1-4) <= 2.00",
+          "weight": 0.023936763394526012
+        }
+      ],
+      "narrative": {
+        "headline": "The system recommends to **approve** this application (54% confidence).",
+        "reasons": [
+          "**Checking account balance** (no checking account) moderately pushed the decision towards approval.",
+          "**Loan purpose** (used car) moderately pushed the decision towards approval.",
+          "**Other instalment plans** (bank) moderately pushed the decision towards rejection."
+        ],
+        "summary": "Overall, the factors pointing towards approval outweighed those pointing towards rejection. The two sides were closely balanced, so this was a borderline case."
+      }
+    },
+    "869": {
+      "id": "869",
+      "applicant": {
+        "checking_status": "overdrawn (below 0 DM)",
+        "duration": "12 months",
+        "credit_history": "existing paid",
+        "purpose": "furniture / equipment",
+        "credit_amount": "652 DM",
+        "savings_status": "under 100 DM",
+        "employment": "7 years or more",
+        "installment_commitment": "4",
+        "other_parties": "none",
+        "residence_since": "4 years",
+        "property_magnitude": "life insurance",
+        "age": "24 years",
+        "other_payment_plans": "none",
+        "housing": "rent",
+        "existing_credits": "1",
+        "job": "skilled",
+        "num_dependents": "1",
+        "own_telephone": "no"
+      },
+      "proba_approve": 0.29896763120272457,
+      "approved": false,
+      "actual_good": true,
+      "shap": {
+        "checking_status": -0.1253924083382611,
+        "duration": 0.012316786969914386,
+        "credit_history": -0.017678294137497864,
+        "purpose": -0.002531603725749026,
+        "credit_amount": -0.0008729638491271021,
+        "savings_status": -0.01704910127334801,
+        "employment": 0.005333887864680193,
+        "installment_commitment": -0.011752146387296563,
+        "other_parties": -0.006774764561224111,
+        "residence_since": 0.0008453496348211461,
+        "property_magnitude": 0.007015132974996879,
+        "age": -0.017883704794565025,
+        "other_payment_plans": 0.007790593827077516,
+        "housing": -0.023402510980928694,
+        "existing_credits": -0.002017731914804048,
+        "job": -0.0011060669475857479,
+        "num_dependents": -0.0011449277458759166,
+        "own_telephone": -0.0066820620791691095
+      },
+      "lime": [
+        {
+          "feature": "checking_status",
+          "rule": "Checking account balance=overdrawn (below 0 DM)",
+          "weight": -0.17120520465631756
+        },
+        {
+          "feature": "savings_status",
+          "rule": "Savings balance=under 100 DM",
+          "weight": -0.06626541281943511
+        },
+        {
+          "feature": "duration",
+          "rule": "Loan duration <= 12.00",
+          "weight": 0.062424462656009795
+        },
+        {
+          "feature": "other_payment_plans",
+          "rule": "Other instalment plans=none",
+          "weight": 0.0570498125500308
+        },
+        {
+          "feature": "age",
+          "rule": "Age <= 27.00",
+          "weight": -0.039750799433207536
+        },
+        {
+          "feature": "credit_history",
+          "rule": "Credit history=existing paid",
+          "weight": -0.037333423368534555
+        },
+        {
+          "feature": "housing",
+          "rule": "Housing=rent",
+          "weight": -0.022913957386304015
+        },
+        {
+          "feature": "installment_commitment",
+          "rule": "3.00 < Repayment burden (1-4) <= 4.00",
+          "weight": -0.022575079403060982
+        }
+      ],
+      "narrative": {
+        "headline": "The system recommends to **reject** this application (70% confidence).",
+        "reasons": [
+          "**Checking account balance** (overdrawn (below 0 DM)) strongly pushed the decision towards rejection.",
+          "**Housing** (rent) slightly pushed the decision towards rejection.",
+          "**Age** (24 years) slightly pushed the decision towards rejection."
+        ],
+        "summary": "Overall, the factors pointing towards rejection outweighed those pointing towards approval."
+      }
+    },
+    "743": {
+      "id": "743",
+      "applicant": {
+        "checking_status": "overdrawn (below 0 DM)",
+        "duration": "24 months",
+        "credit_history": "all paid",
+        "purpose": "furniture / equipment",
+        "credit_amount": "2,483 DM",
+        "savings_status": "500-1,000 DM",
+        "employment": "1-4 years",
+        "installment_commitment": "4",
+        "other_parties": "none",
+        "residence_since": "4 years",
+        "property_magnitude": "real estate",
+        "age": "22 years",
+        "other_payment_plans": "stores",
+        "housing": "own",
+        "existing_credits": "1",
+        "job": "skilled",
+        "num_dependents": "1",
+        "own_telephone": "yes"
+      },
+      "proba_approve": 0.43243915935690175,
+      "approved": false,
+      "actual_good": true,
+      "shap": {
+        "checking_status": -0.09833362938772935,
+        "duration": -0.006970657004837208,
+        "credit_history": -0.026422031617208484,
+        "purpose": 0.003610168933528446,
+        "credit_amount": 0.01614636950727508,
+        "savings_status": 0.047285134631987004,
+        "employment": 0.003372641964507458,
+        "installment_commitment": -0.009510943192403172,
+        "other_parties": -0.004720775335037541,
+        "residence_since": -0.00013184939180241735,
+        "property_magnitude": 0.01631668743917441,
+        "age": -0.014464861534646314,
+        "other_payment_plans": -0.012669712526371113,
+        "housing": 0.00946729263677333,
+        "existing_credits": 4.6810883081148836e-05,
+        "job": 3.067211154974379e-05,
+        "num_dependents": -0.0005577943941706173,
+        "own_telephone": 0.009991468966564627
+      },
+      "lime": [
+        {
+          "feature": "checking_status",
+          "rule": "Checking account balance=overdrawn (below 0 DM)",
+          "weight": -0.16735891662922833
+        },
+        {
+          "feature": "credit_history",
+          "rule": "Credit history=all paid",
+          "weight": -0.04279200731527238
+        },
+        {
+          "feature": "age",
+          "rule": "Age <= 27.00",
+          "weight": -0.039505404920045464
+        },
+        {
+          "feature": "other_payment_plans",
+          "rule": "Other instalment plans=stores",
+          "weight": -0.03710829686135596
+        },
+        {
+          "feature": "credit_amount",
+          "rule": "2246.50 < Loan amount <= 3870.50",
+          "weight": 0.02624231318563521
+        },
+        {
+          "feature": "housing",
+          "rule": "Housing=own",
+          "weight": 0.02234387348326882
+        },
+        {
+          "feature": "property_magnitude",
+          "rule": "Most valuable property=real estate",
+          "weight": 0.02161113004256204
+        },
+        {
+          "feature": "savings_status",
+          "rule": "Savings balance=500-1,000 DM",
+          "weight": 0.019517358706666203
+        }
+      ],
+      "narrative": {
+        "headline": "The system recommends to **reject** this application (57% confidence).",
+        "reasons": [
+          "**Checking account balance** (overdrawn (below 0 DM)) strongly pushed the decision towards rejection.",
+          "**Savings balance** (500-1,000 DM) moderately pushed the decision towards approval.",
+          "**Credit history** (all paid) slightly pushed the decision towards rejection."
+        ],
+        "summary": "Overall, the factors pointing towards rejection outweighed those pointing towards approval."
+      }
+    }
+  }
+}

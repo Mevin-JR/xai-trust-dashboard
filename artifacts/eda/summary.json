@@ -1,0 +1,176 @@
+{
+  "rows": 1000,
+  "features_used": 18,
+  "numeric_features": [
+    "duration",
+    "credit_amount",
+    "installment_commitment",
+    "residence_since",
+    "age",
+    "existing_credits",
+    "num_dependents"
+  ],
+  "categorical_features": [
+    "checking_status",
+    "credit_history",
+    "purpose",
+    "savings_status",
+    "employment",
+    "other_parties",
+    "property_magnitude",
+    "other_payment_plans",
+    "housing",
+    "job",
+    "own_telephone"
+  ],
+  "class_balance": {
+    "good": 700,
+    "bad": 300,
+    "good_share": 0.7
+  },
+  "missing_values": 0,
+  "numeric": {
+    "duration": {
+      "count": 1000.0,
+      "mean": 20.9,
+      "std": 12.06,
+      "min": 4.0,
+      "25%": 12.0,
+      "50%": 18.0,
+      "75%": 24.0,
+      "max": 72.0
+    },
+    "credit_amount": {
+      "count": 1000.0,
+      "mean": 3271.26,
+      "std": 2822.74,
+      "min": 250.0,
+      "25%": 1365.5,
+      "50%": 2319.5,
+      "75%": 3972.25,
+      "max": 18424.0
+    },
+    "installment_commitment": {
+      "count": 1000.0,
+      "mean": 2.97,
+      "std": 1.12,
+      "min": 1.0,
+      "25%": 2.0,
+      "50%": 3.0,
+      "75%": 4.0,
+      "max": 4.0
+    },
+    "residence_since": {
+      "count": 1000.0,
+      "mean": 2.84,
+      "std": 1.1,
+      "min": 1.0,
+      "25%": 2.0,
+      "50%": 3.0,
+      "75%": 4.0,
+      "max": 4.0
+    },
+    "age": {
+      "count": 1000.0,
+      "mean": 35.55,
+      "std": 11.38,
+      "min": 19.0,
+      "25%": 27.0,
+      "50%": 33.0,
+      "75%": 42.0,
+      "max": 75.0
+    },
+    "existing_credits": {
+      "count": 1000.0,
+      "mean": 1.41,
+      "std": 0.58,
+      "min": 1.0,
+      "25%": 1.0,
+      "50%": 1.0,
+      "75%": 2.0,
+      "max": 4.0
+    },
+    "num_dependents": {
+      "count": 1000.0,
+      "mean": 1.16,
+      "std": 0.36,
+      "min": 1.0,
+      "25%": 1.0,
+      "50%": 1.0,
+      "75%": 1.0,
+      "max": 2.0
+    }
+  },
+  "good_rate_by_category": {
+    "checking_status": {
+      "0-200 DM": 0.61,
+      "overdrawn (below 0 DM)": 0.507,
+      "200 DM or more": 0.778,
+      "no checking account": 0.883
+    },
+    "credit_history": {
+      "all paid": 0.429,
+      "critical / other existing credit": 0.829,
+      "delayed previously": 0.682,
+      "existing paid": 0.681,
+      "no credits / all paid": 0.375
+    },
+    "purpose": {
+      "business": 0.649,
+      "domestic appliance": 0.667,
+      "education": 0.56,
+      "furniture / equipment": 0.68,
+      "new car": 0.62,
+      "other": 0.583,
+      "radio / tv": 0.779,
+      "repairs": 0.636,
+      "retraining": 0.889,
+      "used car": 0.835
+    },
+    "savings_status": {
+      "100-500 DM": 0.67,
+      "500-1,000 DM": 0.825,
+      "under 100 DM": 0.64,
+      "1,000 DM or more": 0.875,
+      "no known savings": 0.825
+    },
+    "employment": {
+      "1-4 years": 0.693,
+      "4-7 years": 0.776,
+      "less than 1 year": 0.593,
+      "7 years or more": 0.747,
+      "unemployed": 0.629
+    },
+    "other_parties": {
+      "co applicant": 0.561,
+      "guarantor": 0.808,
+      "none": 0.7
+    },
+    "property_magnitude": {
+      "car": 0.693,
+      "life insurance": 0.694,
+      "no known property": 0.565,
+      "real estate": 0.787
+    },
+    "other_payment_plans": {
+      "bank": 0.59,
+      "none": 0.725,
+      "stores": 0.596
+    },
+    "housing": {
+      "for free": 0.593,
+      "own": 0.739,
+      "rent": 0.609
+    },
+    "job": {
+      "high qualif / self emp / mgmt": 0.655,
+      "skilled": 0.705,
+      "unemp / unskilled non res": 0.682,
+      "unskilled resident": 0.72
+    },
+    "own_telephone": {
+      "no": 0.686,
+      "yes": 0.72
+    }
+  }
+}

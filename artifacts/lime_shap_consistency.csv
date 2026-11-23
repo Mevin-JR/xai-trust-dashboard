@@ -1,0 +1,11 @@
+case,shap_top,lime_top,top_match,top3_overlap,shared_same_direction,shap_top3,lime_top3
+732,other_parties,checking_status,False,1,1/1,"Co-applicant or guarantor, Loan duration, Loan purpose","Checking account balance, Loan duration, Other instalment plans"
+23,checking_status,checking_status,True,3,3/3,"Checking account balance, Loan purpose, Credit history","Checking account balance, Loan purpose, Credit history"
+638,checking_status,checking_status,True,1,1/1,"Checking account balance, Loan purpose, Loan amount","Checking account balance, Other instalment plans, Savings balance"
+192,checking_status,checking_status,True,2,2/2,"Checking account balance, Savings balance, Age","Checking account balance, Savings balance, Loan duration"
+727,checking_status,checking_status,True,2,2/2,"Checking account balance, Other instalment plans, Loan purpose","Checking account balance, Other instalment plans, Savings balance"
+4,checking_status,checking_status,True,1,1/1,"Checking account balance, Loan purpose, Most valuable property","Checking account balance, Other instalment plans, Savings balance"
+175,checking_status,checking_status,True,2,2/2,"Checking account balance, Loan purpose, Savings balance","Checking account balance, Loan purpose, Other instalment plans"
+333,checking_status,checking_status,True,2,2/2,"Checking account balance, Loan purpose, Other instalment plans","Checking account balance, Loan purpose, Credit history"
+869,checking_status,checking_status,True,1,1/1,"Checking account balance, Housing, Age","Checking account balance, Savings balance, Loan duration"
+743,checking_status,checking_status,True,2,2/2,"Checking account balance, Savings balance, Credit history","Checking account balance, Credit history, Age"

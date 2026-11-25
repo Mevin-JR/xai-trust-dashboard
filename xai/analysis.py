@@ -1,9 +1,9 @@
 """Statistical analysis of the study responses (the plan from the methodology chapter).
 
 Per participant and condition it scores:
-  trust          mean of the 6 trust items, reverse items recoded (8 - x)       1-7
-  understand     self-rated understanding                                       1-7
-  satisfaction   mean of the 4 explanation-satisfaction items (explained only)  1-7
+  trust          mean of the 6 trust items, reverse items recoded (6 - x)       1-5
+  understand     self-rated understanding                                       1-5
+  satisfaction   mean of the 4 explanation-satisfaction items (explained only)  1-5
   factor_correct picked the top SHAP feature as most influential                0/1
   forward_correct predicted the system's decision for a new applicant           0/1
 
@@ -13,6 +13,7 @@ Tests (only completed participants are included):
               tests of each explanation against the black box (Holm-corrected).
   SQ4         Friedman test on the usefulness ranks of LIME, SHAP and plain language.
   SQ5         Spearman correlation between explanation satisfaction and trust.
+  Reliability Cronbach's alpha for the trust and satisfaction scales.
 
 Run: uv run python -m xai.analysis
 """
@@ -28,6 +29,7 @@ from .data import ARTIFACTS
 OUT = ARTIFACTS / "analysis"
 CONDITIONS = storage.CONDITIONS
 EXPLAINED = [c for c in CONDITIONS if c != "black_box"]
+AGREE_POINTS = 5  # Strongly disagree (1) ... Strongly agree (5)
 TRUST = ["trust_1", "trust_2", "trust_3", "trust_4", "trust_5_rev", "trust_6_rev"]
 SATISFACTION = ["sat_1", "sat_2", "sat_3", "sat_4"]
 RANKS = {"rank_lime": "lime", "rank_shap": "shap", "rank_plain-language": "plain_language"}
@@ -45,7 +47,7 @@ def score(responses: pd.DataFrame) -> pd.DataFrame:
     wide = wide.apply(as_number)
     for item in TRUST:
         if item.endswith("_rev"):
-            wide[item] = 8 - wide[item]
+            wide[item] = AGREE_POINTS + 1 - wide[item]
     out = pd.DataFrame(index=wide.index)
     out["trust"] = wide[TRUST].mean(axis=1)
     out["understand"] = wide["understand_self"]
@@ -53,6 +55,25 @@ def score(responses: pd.DataFrame) -> pd.DataFrame:
     out["factor_correct"] = wide["top_factor_correct"]
     out["forward_correct"] = wide["forward_correct"]
     return out.reset_index()
+
+
+def cronbach_alpha(items: pd.DataFrame) -> float | None:
+    """Internal consistency of a scale; rows = responses, columns = items."""
+    items = items.dropna()
+    k = items.shape[1]
+    if len(items) < 3 or k < 2 or items.sum(axis=1).var(ddof=1) == 0:
+        return None
+    return round(float(k / (k - 1) * (1 - items.var(ddof=1).sum() / items.sum(axis=1).var(ddof=1))), 3)
+
+
+def item_responses(responses: pd.DataFrame, items: list[str]) -> pd.DataFrame:
+    """One row per participant x condition with the raw items (reverse items recoded)."""
+    df = responses[responses["item"].isin(items)]
+    wide = df.pivot_table(index=["pid", "condition"], columns="item", values="value", aggfunc="first").apply(as_number)
+    for item in wide.columns:
+        if item.endswith("_rev"):
+            wide[item] = AGREE_POINTS + 1 - wide[item]
+    return wide.reindex(columns=items)
 
 
 def holm(pvalues: dict[str, float]) -> dict[str, float]:
@@ -105,6 +126,9 @@ def analyse(responses: pd.DataFrame) -> dict:
     means = scores.groupby("condition")[["trust", "understand", "satisfaction", "factor_correct",
                                          "forward_correct"]].mean().round(3).reindex(CONDITIONS)
     results = {"participants": n,
+               "reliability_cronbach_alpha": {
+                   "trust": cronbach_alpha(item_responses(completed, TRUST)),
+                   "satisfaction": cronbach_alpha(item_responses(completed, SATISFACTION))},
                "condition_means": means.astype(object).where(means.notna(), None).to_dict(orient="index")}
     for m in ("trust", "understand"):
         wide = by_cond(m)

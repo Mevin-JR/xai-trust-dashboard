@@ -13,7 +13,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import streamlit as st
 
-from xai import storage
+from xai import storage, study_text
 from xai.data import ARTIFACTS
 
 st.set_page_config(page_title="Loan application review", layout="wide")
@@ -74,6 +74,72 @@ dl.fields dd { margin:0; font-size:0.95rem; font-weight:500; color:var(--ink); }
 .st-key-register [role="radiogroup"] label:hover { background:#2A3944; }
 .st-key-register [role="radiogroup"] label:has(input:checked) { background:#2A3944; box-shadow:inset 3px 0 0 #8DB4E2; }
 .st-key-register [role="radiogroup"] label:has(input:focus-visible) { outline:2px solid #8DB4E2; outline-offset:-2px; }
+
+/* Survey: the questionnaire is another sheet in the file. */
+[class*="st-key-sheet_"] { background:var(--sheet); border:1px solid var(--rule); border-top:5px solid var(--ink);
+                           padding:0.6rem 1.4rem 1.2rem; margin-top:0.6rem; }
+.q-section { margin:1.2rem 0 0.2rem; }
+.q-section h4 { margin:0; padding:0; font-size:1.08rem; font-weight:700; color:var(--ink); }
+.q-section p { margin:0.15rem 0 0; font-size:0.88rem; color:var(--muted); }
+[class*="st-key-q_"] { border-top:1px dotted var(--rule); padding:0.9rem 0 0.4rem; }
+.q-head { display:flex; gap:0.9rem; align-items:baseline; }
+.q-num { flex:0 0 2rem; font-weight:800; font-size:1.05rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+.q-text { margin:0; font-size:1rem; font-weight:500; color:var(--ink); line-height:1.4; }
+[class*="st-key-q_"] [data-testid="stRadio"], [class*="st-key-q_"] [data-testid="stTextArea"] { margin-left:2.9rem; }
+@media (max-width:640px) {
+  [class*="st-key-q_"] [data-testid="stRadio"], [class*="st-key-q_"] [data-testid="stTextArea"] { margin-left:0; }
+}
+
+/* Answer options as buttons, all the same width. */
+[class*="st-key-q_"] [data-testid="stElementContainer"]:has([data-testid="stRadio"]),
+[class*="st-key-q_"] [data-testid="stElementContainer"]:has([data-testid="stTextArea"]) { width:100% !important; }
+[class*="st-key-q_first"] { border-top:none; }
+/* Streamlit wraps each option in its own div, so the radio group itself is the grid. Five equal columns:
+   every scale reads in one row and every button on the page has the same width. */
+[class*="st-key-q_"] [data-testid="stRadioGroup"] { display:grid !important; width:100%;
+                                                    grid-template-columns:repeat(5, minmax(0, 1fr)); gap:0.45rem; }
+[class*="st-key-q_"] label[data-testid="stRadioOption"] {
+  width:100%; min-height:3.6rem; margin:0; padding:0.4rem 0.45rem; box-sizing:border-box;
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  background:#EEF2F0; border:1px solid var(--rule); border-radius:6px; cursor:pointer; }
+[class*="st-key-q_"] label[data-testid="stRadioOption"] > div > div:first-child { display:none; }
+[class*="st-key-q_"] label[data-testid="stRadioOption"] p { font-size:0.82rem; line-height:1.25; color:var(--ink);
+                                                             hyphens:auto; }
+[class*="st-key-q_"] label[data-testid="stRadioOption"]:hover { border-color:var(--ink); }
+[class*="st-key-q_"] label[data-testid="stRadioOption"]:has(input:checked) { background:var(--ink); border-color:var(--ink); }
+[class*="st-key-q_"] label[data-testid="stRadioOption"]:has(input:checked) p { color:#FFFFFF; font-weight:600; }
+/* Agreement scales: a lighter tint and a lighter selected slate than the decision and prediction questions. */
+[class*="st-key-q_agree"] label[data-testid="stRadioOption"] { background:#F6F8F7; border-color:#D5DDDF; }
+[class*="st-key-q_agree"] label[data-testid="stRadioOption"]:hover { border-color:#4E6472; }
+[class*="st-key-q_agree"] label[data-testid="stRadioOption"]:has(input:checked) { background:#4E6472;
+                                                                                 border-color:#4E6472; }
+[class*="st-key-q_"] label[data-testid="stRadioOption"]:has(input:focus-visible) { outline:2px solid var(--approve);
+                                                                                   outline-offset:2px; }
+@media (max-width:640px) {
+  [class*="st-key-q_"] [data-testid="stRadioGroup"] { grid-template-columns:1fr; }
+  [class*="st-key-q_"] label[data-testid="stRadioOption"] { min-height:2.8rem; }
+}
+
+/* "Clear" under a ranking row: a quiet text control, aligned with the options. */
+[class*="st-key-clear_"] { margin-left:2.9rem; }
+[class*="st-key-clear_"] button { min-height:0; padding:0.1rem 0; color:var(--muted); }
+[class*="st-key-clear_"] button p { font-size:0.84rem; text-decoration:underline; text-underline-offset:2px; }
+[class*="st-key-clear_"] button:hover p { color:var(--ink); }
+@media (max-width:640px) { [class*="st-key-clear_"] { margin-left:0; } }
+
+/* Why the button is disabled. */
+.st-key-gate [data-testid="stElementContainer"] { align-self:flex-end; width:auto !important; }
+.gate { margin:1rem 0 0.4rem; font-size:0.92rem; color:var(--reject); font-weight:500; text-align:right; }
+.gate.ok { color:var(--muted); font-weight:400; }
+.st-key-gate_left .gate { text-align:left; }
+
+/* Participant information: the one floating element. */
+.st-key-info_fab { position:fixed; right:1.5rem; bottom:1.5rem; z-index:1000; width:auto !important; }
+.st-key-info_fab button { width:3.1rem; height:3.1rem; min-height:0; padding:0; border-radius:50%; border:none;
+                          background:var(--ink); color:#FFFFFF; box-shadow:0 3px 10px rgba(30,42,51,0.28); }
+.st-key-info_fab button p { font-size:1.3rem; font-weight:800; }
+.st-key-info_fab button:hover { background:#2E3F4B; color:#FFFFFF; }
+.st-key-info_fab button:focus-visible { outline:3px solid var(--approve); outline-offset:3px; }
 </style>
 """
 st.markdown(STYLE, unsafe_allow_html=True)
@@ -85,7 +151,14 @@ CONDITION_NAMES = {
     "plain_language": "Plain-language explanation",
 }
 APPROVE, REJECT = "#1F5FA8", "#C4661F"  # blue / orange: distinguishable with colour-vision deficiency
-SCALE = ["1 - Strongly disagree", "2", "3", "4", "5", "6", "7 - Strongly agree"]
+# Every scale point is named; answers are stored as their position (1 = first label).
+AGREE = ["Strongly disagree", "Disagree", "Neither agree nor disagree", "Agree", "Strongly agree"]
+CONFIDENCE = ["Not at all confident", "Slightly confident", "Moderately confident", "Very confident",
+              "Completely confident"]
+FAMILIARITY = ["Not at all familiar", "Slightly familiar", "Somewhat familiar", "Moderately familiar",
+               "Extremely familiar"]
+LENDING = ["No", "Yes, personally (e.g. my own loans)", "Yes, professionally"]
+RANKS = ["Most useful", "Second most useful", "Least useful"]
 
 # Adapted from the Trust in Automation scale (Jian, Bisantz & Drury, 2000).
 TRUST_ITEMS = {
@@ -367,24 +440,121 @@ def sidebar():
 
 # ---------- study mode ----------
 
-def score(choice):
-    """Store scale answers as numbers (e.g. "7 - Strongly agree" -> 7)."""
-    return None if choice is None else int(choice[0])
+def clear_answer(key):
+    st.session_state[key] = None
 
 
-def likert(items, key):
-    return {k: score(st.radio(text, SCALE, index=None, horizontal=True, key=f"{key}_{k}"))
-            for k, text in items.items()}
+class Questionnaire:
+    """Numbered questions on one survey page; remembers which are still unanswered."""
+
+    def __init__(self, page):
+        self.page, self.n, self.missing = page, 0, []
+
+    def section(self, title, note=None):
+        note = f"<p>{html.escape(note)}</p>" if note else ""
+        st.markdown(f"<div class='q-section'><h4>{html.escape(title)}</h4>{note}</div>", unsafe_allow_html=True)
+
+    def _head(self, text):
+        self.n += 1
+        st.markdown(f"<div class='q-head'><span class='q-num'>{self.n}</span>"
+                    f"<p class='q-text'>{html.escape(text)}</p></div>", unsafe_allow_html=True)
+
+    def _key(self, variant=""):
+        return f"q_{'first_' if self.n == 0 else ''}{variant}{self.page}_{self.n + 1}"
+
+    def ask(self, text, options, key, format_func=str, variant="", on_change=None, clearable=False):
+        with st.container(key=self._key(variant)):
+            self._head(text)
+            value = st.radio(text, options, index=None, key=key, format_func=format_func,
+                             horizontal=True, label_visibility="collapsed", on_change=on_change)
+            if clearable and value is not None:
+                st.button("Clear", key=f"clear_{key}", type="tertiary", on_click=clear_answer, args=(key,),
+                          help="Remove this answer")
+        if value is None:
+            self.missing.append(self.n)
+        return value
+
+    def scale(self, text, labels, key, variant=None, on_change=None, clearable=False):
+        """A named rating scale; returns the chosen position (1 = first label) or None."""
+        if variant is None:
+            variant = "agree_" if labels is AGREE else ""
+        value = self.ask(text, labels, key, variant=variant, on_change=on_change, clearable=clearable)
+        return None if value is None else labels.index(value) + 1
+
+    def comment(self, text, key):
+        with st.container(key=self._key()):
+            self._head(text)
+            return st.text_area(text, key=key, label_visibility="collapsed")
 
 
-def factor_question(case, key):
+def gated_button(label, problem, done="All questions answered.", align="right"):
+    """A primary button that stays disabled while `problem` says what is missing."""
+    with st.container(key="gate" if align == "right" else "gate_left"):
+        if problem:
+            st.markdown(f"<p class='gate'>{html.escape(problem)}</p>", unsafe_allow_html=True)
+        elif done:
+            st.markdown(f"<p class='gate ok'>{html.escape(done)}</p>", unsafe_allow_html=True)
+        return st.button(label, type="primary", disabled=bool(problem), help=problem or None)
+
+
+def missing_message(missing):
+    return f"Answer all questions to continue ({len(missing)} left)." if missing else None
+
+
+@st.dialog("About this study", width="large")
+def study_information():
+    st.markdown(study_text.INFORMATION)
+    st.markdown("##### What you agreed to")
+    st.markdown("\n".join(f"- {line}" for line in study_text.CONSENT_STATEMENTS))
+    st.markdown(f"To stop taking part, close this page. Questions: {study_text.RESEARCHER_EMAIL} "
+                f"(researcher) or {study_text.SUPERVISOR_EMAIL} (supervisor).")
+
+
+def info_button():
+    if st.button("?", key="info_fab", help="About this study: what it involves, your rights and who to contact"):
+        study_information()
+
+
+def short_name(label):
+    return label.split(" (")[0]
+
+
+def claim_rank_for(kind, kinds):
+    """Keep ranks unique: if another explanation already holds the chosen rank, clear it there.
+    Only reachable by keyboard, since taken ranks cannot be clicked (see lock_taken_ranks)."""
+    def claim():
+        chosen = st.session_state.get(f"rank_{kind}")
+        for other in kinds:
+            if other != kind and chosen is not None and st.session_state.get(f"rank_{other}") == chosen:
+                st.session_state[f"rank_{other}"] = None
+    return claim
+
+
+def lock_taken_ranks(kinds):
+    """Grey out, and block clicks on, each rank another explanation already holds, and say who holds it."""
+    rules = []
+    for kind in kinds:
+        for other, label in kinds.items():
+            taken = st.session_state.get(f"rank_{other}")
+            if other == kind or taken is None:
+                continue
+            option = (f'[class*="st-key-q_"][class*="rank_{kind}_"] [data-testid="stRadioGroup"] '
+                      f'> div:nth-child({RANKS.index(taken) + 1}) label')
+            rules.append(f"{option} {{ opacity:0.5; pointer-events:none; cursor:not-allowed; }}")
+            rules.append(f'{option} p::after {{ content:"Given to {short_name(label)}"; display:block; '
+                         f"font-size:0.72rem; font-weight:400; }}")
+    if rules:
+        st.markdown(f"<style>{' '.join(rules)}</style>", unsafe_allow_html=True)
+
+
+def factor_question(q, case, key):
     """'Which factor influenced the decision most?' Correct answer = top SHAP feature."""
     ranked = sorted(case["shap"], key=lambda f: abs(case["shap"][f]), reverse=True)
     rng = random.Random(case["id"])
     options = [ranked[0], *rng.sample(ranked[4:], 3)]
     rng.shuffle(options)
-    answer = st.radio("Which factor do you think influenced the system's recommendation the most?",
-                      options, format_func=LABELS.get, index=None, key=key)
+    answer = q.ask("Which factor do you think influenced the system's recommendation the most?",
+                   options, key, format_func=LABELS.get)
     return {"top_factor_answer": answer, "top_factor_correct": answer == ranked[0]}
 
 
@@ -394,28 +564,25 @@ def study():
 
     if s.step == "consent":
         st.title("How do people judge AI loan decisions?", anchor=False)
-        st.markdown("""
-This study is part of an MSc research project at the National College of Ireland. You will see
-loan applications assessed by an AI system, sometimes with an explanation, and answer short
-questions about them. It takes about **15-20 minutes**.
-
-- Participation is voluntary and you can stop at any time.
-- No names, emails or other personal details are collected. Responses are stored under a random ID.
-- The applicants are from a public research dataset; they are not real customers.
-""")
-        if st.checkbox("I have read the information above and agree to take part.") and st.button("Start", type="primary"):
+        st.markdown(study_text.INFORMATION)
+        st.markdown("##### Consent")
+        st.markdown("\n".join(f"- {line}" for line in study_text.CONSENT_STATEMENTS))
+        agreed = st.checkbox(study_text.CONSENT_CHECKBOX)
+        if gated_button("Start", None if agreed else "Tick the consent box above to start.", done=None, align="left"):
             s.pid, s.order = storage.new_participant()
             s.block, s.step = 0, "background"
             st.rerun()
 
     elif s.step == "background":
         st.title("Before we begin", anchor=False)
-        ai = st.radio("How familiar are you with artificial intelligence or machine learning?",
-                      ["1 - Not at all", "2", "3", "4", "5 - Very familiar"], index=None, horizontal=True)
-        loans = st.radio("Have you ever made or assessed lending or credit decisions?",
-                         ["No", "Yes, personally (e.g. my own loans)", "Yes, professionally"], index=None)
-        if st.button("Continue", type="primary", disabled=None in (ai, loans)):
-            storage.save(s.pid, -1, "background", "", {"ai_familiarity": score(ai), "lending_experience": loans})
+        st.markdown("Two short questions about you. There are no right or wrong answers.")
+        with st.container(key="sheet_background"):
+            q = Questionnaire("background")
+            ai = q.scale("How familiar are you with artificial intelligence or machine learning?",
+                         FAMILIARITY, "bg_ai")
+            loans = q.ask("Have you ever made or assessed lending or credit decisions?", LENDING, "bg_loans")
+        if gated_button("Continue", missing_message(q.missing)):
+            storage.save(s.pid, -1, "background", "", {"ai_familiarity": ai, "lending_experience": loans})
             s.step = "explained"
             st.rerun()
 
@@ -429,32 +596,38 @@ questions about them. It takes about **15-20 minutes**.
             case = EXP["cases"][spec["explained"]]
             st.title(f"Part {block + 1}: review this decision", anchor=False)
             show_case(case, condition)
-            st.divider()
-            answers = factor_question(case, f"{key}_factor")
-            answers |= likert(TRUST_ITEMS | UNDERSTANDING_ITEM, key)
-            if condition != "black_box":
-                answers |= likert(SATISFACTION_ITEMS, key)
-            if st.button("Next", type="primary", disabled=None in answers.values()):
+            with st.container(key=f"sheet_{key}"):
+                q = Questionnaire(key)
+                q.section("The decision")
+                answers = factor_question(q, case, f"{key}_factor")
+                q.section("Your view of the system", "How much do you agree with each statement?")
+                answers |= {k: q.scale(text, AGREE, f"{key}_{k}") for k, text in (TRUST_ITEMS | UNDERSTANDING_ITEM).items()}
+                if condition != "black_box":
+                    q.section("The explanation", "How much do you agree with each statement about the explanation?")
+                    answers |= {k: q.scale(text, AGREE, f"{key}_{k}") for k, text in SATISFACTION_ITEMS.items()}
+            if gated_button("Next", missing_message(q.missing)):
                 storage.save(s.pid, block, condition, case["id"], answers)
                 s.step = "forward"
                 st.rerun()
         else:
             case = EXP["cases"][spec["forward"]]
             st.title(f"Part {block + 1}: predict the system", anchor=False)
-            form, questions = st.columns([1, 1], gap="large")
+            form, intro = st.columns([1, 1], gap="large")
             with form:
                 applicant_panel(case)
-            with questions:
-                st.markdown("Here is a **new** applicant. Based on what you have seen so far, "
-                            "what do you think the system will recommend?")
-                guess = st.radio("The system will recommend to...", ["Approve", "Reject"], index=None,
-                                 horizontal=True, key=f"{key}_guess")
-                conf = st.radio("How confident are you in your prediction?", SCALE, index=None,
-                                horizontal=True, key=f"{key}_conf")
-                go = st.button("Next", type="primary", disabled=None in (guess, conf))
+            with intro:
+                st.markdown("Here is a **new** applicant. The system has assessed this application, but its "
+                            "recommendation is hidden.\n\nRead the application, then answer the two questions "
+                            "below: what do you think the system recommended, based on what you have seen so far?")
+            with st.container(key=f"sheet_{key}"):
+                q = Questionnaire(key)
+                q.section("Your prediction")
+                guess = q.ask("The system will recommend to...", ["Approve", "Reject"], f"{key}_guess")
+                conf = q.scale("How confident are you in your prediction?", CONFIDENCE, f"{key}_conf")
+            go = gated_button("Next", missing_message(q.missing))
             if go:
                 storage.save(s.pid, block, condition, case["id"], {
-                    "forward_guess": guess, "forward_confidence": score(conf),
+                    "forward_guess": guess, "forward_confidence": conf,
                     "forward_correct": (guess == "Approve") == case["approved"]})
                 s.block += 1
                 s.step = "explained" if s.block < 4 else "final"
@@ -463,24 +636,32 @@ questions about them. It takes about **15-20 minutes**.
     elif s.step == "final":
         st.title("Last questions", anchor=False)
         st.markdown("You saw three kinds of explanation. Rank them from most to least useful.")
-        kinds = ["LIME (bar chart of conditions)", "SHAP (bar chart of feature contributions)",
-                 "Plain-language (written sentences)"]
-        ranks = {k: st.selectbox(k, ["1 - most useful", "2", "3 - least useful"], index=None, key=f"rank_{k}")
-                 for k in kinds}
-        valid = None not in ranks.values() and len(set(ranks.values())) == 3
-        if None not in ranks.values() and not valid:
-            st.warning("Please give each explanation a different rank.")
-        comment = st.text_area("Anything else you would like to tell us? (optional)")
-        if st.button("Submit", type="primary", disabled=not valid):
-            storage.save(s.pid, 4, "final", "", {**{f"rank_{k.split()[0].lower().rstrip('-')}": score(v) for k, v in ranks.items()},
-                                                  "comment": comment})
+        kinds = {"lime": "LIME (bar chart of conditions)", "shap": "SHAP (bar chart of feature contributions)",
+                 "plain-language": "Plain language (written sentences)"}
+        lock_taken_ranks(kinds)
+        with st.container(key="sheet_final"):
+            q = Questionnaire("final")
+            q.section("Usefulness of the explanations",
+                      "Each rank can be given to one explanation only. To reuse a rank, clear it on the "
+                      "explanation that has it first.")
+            ranks = {k: q.scale(text, RANKS, f"rank_{k}", variant=f"rank_{k}_", on_change=claim_rank_for(k, kinds),
+                                clearable=True)
+                     for k, text in kinds.items()}
+            q.section("Anything else?")
+            comment = q.comment(study_text.COMMENT_LABEL, "comment")
+        if gated_button("Submit my answers", missing_message(q.missing)):
+            storage.save(s.pid, 4, "final", "", {**{f"rank_{k}": r for k, r in ranks.items()}, "comment": comment})
             storage.complete(s.pid)
             s.step = "done"
             st.rerun()
 
     else:
         st.title("Thank you!", anchor=False)
-        st.markdown("Your responses have been saved. You can now close this page.")
+        st.markdown("Your responses have been saved.")
+        st.markdown(study_text.DEBRIEF)
+        st.markdown("You can now close this page.")
+
+    info_button()
 
 
 # Participants get a link ending in ?mode=study, which hides the sidebar and Explore mode.

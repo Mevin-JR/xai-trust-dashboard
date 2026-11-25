@@ -119,17 +119,17 @@
         {
           "feature": "duration",
           "rule": "Loan duration <= 12.00",
-          "weight": 0.060090568391050356
+          "weight": 0.06009056839105037
         },
         {
           "feature": "other_payment_plans",
           "rule": "Other instalment plans=none",
-          "weight": 0.05924271112865342
+          "weight": 0.05924271112865341
         },
         {
           "feature": "savings_status",
           "rule": "Savings balance=under 100 DM",
-          "weight": -0.058328720596898906
+          "weight": -0.05832872059689891
         },
         {
           "feature": "other_parties",
@@ -139,12 +139,12 @@
         {
           "feature": "purpose",
           "rule": "Loan purpose=radio / tv",
-          "weight": 0.043856298285365955
+          "weight": 0.04385629828536595
         },
         {
           "feature": "credit_history",
           "rule": "Credit history=existing paid",
-          "weight": -0.032382271917927224
+          "weight": -0.03238227191792724
         },
         {
           "feature": "age",
@@ -333,7 +333,7 @@
         {
           "feature": "credit_history",
           "rule": "Credit history=existing paid",
-          "weight": -0.03726500958791432
+          "weight": -0.037265009587914316
         },
         {
           "feature": "employment",
@@ -343,7 +343,7 @@
         {
           "feature": "housing",
           "rule": "Housing=own",
-          "weight": 0.022367309467817384
+          "weight": 0.02236730946781738
         }
       ],
       "narrative": {
@@ -405,7 +405,7 @@
         {
           "feature": "checking_status",
           "rule": "Checking account balance=0-200 DM",
-          "weight": -0.09290665116391414
+          "weight": -0.09290665116391413
         },
         {
           "feature": "savings_status",
@@ -420,7 +420,7 @@
         {
           "feature": "other_payment_plans",
           "rule": "Other instalment plans=none",
-          "weight": 0.05759509995824741
+          "weight": 0.05759509995824743
         },
         {
           "feature": "credit_amount",
@@ -440,7 +440,7 @@
         {
           "feature": "housing",
           "rule": "Housing=own",
-          "weight": 0.02478635345539554
+          "weight": 0.024786353455395545
         }
       ],
       "narrative": {
@@ -507,7 +507,7 @@
         {
           "feature": "other_payment_plans",
           "rule": "Other instalment plans=bank",
-          "weight": -0.06353176618068164
+          "weight": -0.06353176618068167
         },
         {
           "feature": "savings_status",
@@ -517,7 +517,7 @@
         {
           "feature": "purpose",
           "rule": "Loan purpose=radio / tv",
-          "weight": 0.03812141868554993
+          "weight": 0.03812141868554994
         },
         {
           "feature": "credit_history",
@@ -532,7 +532,7 @@
         {
           "feature": "housing",
           "rule": "Housing=rent",
-          "weight": -0.024555712003127242
+          "weight": -0.02455571200312724
         },
         {
           "feature": "credit_amount",
@@ -619,12 +619,12 @@
         {
           "feature": "purpose",
           "rule": "Loan purpose=new car",
-          "weight": -0.04785308480289409
+          "weight": -0.04785308480289408
         },
         {
           "feature": "age",
           "rule": "Age > 41.00",
-          "weight": 0.030477575277047683
+          "weight": 0.030477575277047697
         },
         {
           "feature": "property_magnitude",
@@ -634,7 +634,7 @@
         {
           "feature": "housing",
           "rule": "Housing=for free",
-          "weight": -0.01993878585854992
+          "weight": -0.019938785858549916
         }
       ],
       "narrative": {
@@ -793,12 +793,12 @@
         {
           "feature": "checking_status",
           "rule": "Checking account balance=no checking account",
-          "weight": 0.21756077460757114
+          "weight": 0.2175607746075711
         },
         {
           "feature": "purpose",
           "rule": "Loan purpose=used car",
-          "weight": 0.07416590767806859
+          "weight": 0.07416590767806858
         },
         {
           "feature": "credit_history",
@@ -828,7 +828,7 @@
         {
           "feature": "installment_commitment",
           "rule": "Repayment burden (1-4) <= 2.00",
-          "weight": 0.023936763394526012
+          "weight": 0.023936763394526002
         }
       ],
       "narrative": {
@@ -900,7 +900,7 @@
         {
           "feature": "duration",
           "rule": "Loan duration <= 12.00",
-          "weight": 0.062424462656009795
+          "weight": 0.0624244626560098
         },
         {
           "feature": "other_payment_plans",
@@ -915,7 +915,7 @@
         {
           "feature": "credit_history",
           "rule": "Credit history=existing paid",
-          "weight": -0.037333423368534555
+          "weight": -0.03733342336853454
         },
         {
           "feature": "housing",
@@ -997,17 +997,17 @@
         {
           "feature": "age",
           "rule": "Age <= 27.00",
-          "weight": -0.039505404920045464
+          "weight": -0.03950540492004546
         },
         {
           "feature": "other_payment_plans",
           "rule": "Other instalment plans=stores",
-          "weight": -0.03710829686135596
+          "weight": -0.03710829686135597
         },
         {
           "feature": "credit_amount",
           "rule": "2246.50 < Loan amount <= 3870.50",
-          "weight": 0.02624231318563521
+          "weight": 0.026242313185635215
         },
         {
           "feature": "housing",
@@ -1017,7 +1017,7 @@
         {
           "feature": "property_magnitude",
           "rule": "Most valuable property=real estate",
-          "weight": 0.02161113004256204
+          "weight": 0.021611130042562036
         },
         {
           "feature": "savings_status",
